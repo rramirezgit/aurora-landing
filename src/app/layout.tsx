@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Space_Grotesk } from "next/font/google";
 import { LenisProvider } from "@/shared/animation/LenisProvider";
+import { Preloader } from "@/shared/ui/Preloader";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -30,6 +31,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${spaceGrotesk.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-[#08070b] text-zinc-200">
+        <Preloader />
         <LenisProvider>{children}</LenisProvider>
       </body>
     </html>

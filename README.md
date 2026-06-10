@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<p align="center">
+  <img src="https://img.shields.io/badge/Next.js-16-000?style=flat-square&logo=nextdotjs&logoColor=white" />
+  <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=white" />
+  <img src="https://img.shields.io/badge/GSAP-ScrollTrigger_·_SplitText_·_Flip-88CE02?style=flat-square&logo=greensock&logoColor=black" />
+  <img src="https://img.shields.io/badge/React_Three_Fiber-9-000?style=flat-square&logo=threedotjs&logoColor=white" />
+  <img src="https://img.shields.io/badge/Lenis-smooth_scroll-orange?style=flat-square" />
+  <img src="https://github.com/rramirezgit/aurora-landing/actions/workflows/ci.yml/badge.svg" />
+</p>
 
-## Getting Started
+<h1 align="center">AURORA</h1>
 
-First, run the development server:
+<p align="center">
+  <strong>Light that understands you</strong><br/>
+  <em>An award-style product landing for a fictional ambient smart lamp — an animation craft showcase</em>
+</p>
+
+<p align="center">
+  <strong><a href="https://aurora-landing-kappa.vercel.app">Live Demo</a></strong>
+</p>
+
+![AURORA demo](docs/demo.gif)
+
+---
+
+## What it demonstrates
+
+AURORA is a scroll-driven, one-page experience built to show motion design engineering — the kind of work behind premium product landings:
+
+- **Hero** — display typography revealed character by character with SplitText, a glowing aurora orb with scroll parallax, and a magnetic CTA with elastic release
+- **Manifesto** — Apple-style copy that lights up word by word, scrubbed to scroll position
+- **Anatomy** — a procedural 3D lamp (React Three Fiber) that explodes into its four parts inside a pinned scene as you scroll, with part labels revealed from the same timeline
+- **Specs** — numbers that count up to their value on viewport entry
+- **Colorways** — a selection ring that travels between swatches with GSAP Flip while the glow changes mood
+- **Finale** — masked line reveals and a real-progress preloader on first load
+
+## Measured performance (CPU throttled 4×)
+
+- **LCP: 182 ms** (TTFB 56 ms + render delay 126 ms)
+- **CLS on load: 0.00**
+- No long-task insights during a full-page scripted scroll in the performance trace
+- The 3D canvas loads client-only via `next/dynamic` and caps `dpr` at 1.5
+
+## Architecture decisions
+
+- **Scroll progress travels through a ref, not React state.** The pinned ScrollTrigger writes its progress into a ref consumed by `useFrame` with lerp smoothing — zero React re-renders during scroll, which is how the scene holds 60fps.
+- **Procedural 3D instead of downloaded models.** The lamp is four groups of primitives with emissive materials: no GLTF downloads, no Draco decoding, near-zero asset weight, instant load.
+- **Lenis driven by the GSAP ticker** (the official integration pattern), so smooth scroll and ScrollTrigger share one clock.
+- **`prefers-reduced-motion` is a full variant, not an afterthought.** It disables Lenis and every tween, and renders the lamp in a static exploded state — all content stays readable with zero motion.
+- **An honest preloader.** Progress tracks real signals (`document.fonts.ready` and `window load`), not a fake timer.
+
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+git clone https://github.com/rramirezgit/aurora-landing.git
+cd aurora-landing
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+```bash
+pnpm build     # Production build
+pnpm lint      # ESLint
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Next.js 16 (App Router) · React 19 · TypeScript strict · GSAP 3.13 (ScrollTrigger, SplitText, Flip) via `@gsap/react` · Lenis · React Three Fiber 9 + three.js · Tailwind CSS 4 · Space Grotesk variable font
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+<sub>AURORA is a fictional product. Built by <a href="https://github.com/rramirezgit">Ricardo Ramirez</a> as part of a frontend portfolio — see the <a href="https://ricardoramirez-dev.vercel.app/work/aurora">full case study</a>.</sub>
