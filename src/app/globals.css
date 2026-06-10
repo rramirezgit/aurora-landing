@@ -1,26 +1,54 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-aurora-amber: #f5b14c;
+  --color-aurora-rose: #e96a8d;
+  --color-aurora-violet: #8b5cf6;
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-display: var(--font-display);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-display), var(--font-geist-sans), sans-serif;
+}
+
+.text-aurora {
+  background: linear-gradient(
+    100deg,
+    var(--color-aurora-amber) 0%,
+    var(--color-aurora-rose) 45%,
+    var(--color-aurora-violet) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.glow-orb {
+  background: radial-gradient(
+    circle at 50% 45%,
+    rgba(245, 177, 76, 0.85) 0%,
+    rgba(233, 106, 141, 0.45) 32%,
+    rgba(139, 92, 246, 0.18) 58%,
+    transparent 72%
+  );
+  filter: blur(2px);
+}
+
+.split-line {
+  overflow: hidden;
+}
+
+::selection {
+  background: rgba(245, 177, 76, 0.3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
