@@ -13,10 +13,10 @@ export interface LampPartConfig {
 }
 
 export const LAMP_PARTS: LampPartConfig[] = [
-  { id: 'diffuser', label: 'Opal glass diffuser', assembledY: 1.05, explodedY: 1.9 },
-  { id: 'ring', label: 'Adaptive light ring', assembledY: 0.78, explodedY: 1.15 },
-  { id: 'body', label: 'Anodized aluminum body', assembledY: 0.28, explodedY: 0.3 },
-  { id: 'base', label: 'Weighted smart base', assembledY: -0.5, explodedY: -0.95 },
+  { id: 'diffuser', label: 'Opal glass dome', assembledY: 0.34, explodedY: 1.75 },
+  { id: 'ring', label: 'Adaptive light ring', assembledY: 0.32, explodedY: 0.92 },
+  { id: 'body', label: 'Aluminum stem', assembledY: -0.28, explodedY: -0.2 },
+  { id: 'base', label: 'Weighted smart base', assembledY: -0.95, explodedY: -1.75 },
 ]
 
 const partY = (id: string, progress: number): number => {
@@ -56,27 +56,29 @@ export function Lamp({ progressRef, staticProgress }: LampProps) {
   })
 
   return (
-    <group ref={group} position={[0, -0.3, 0]}>
+    <group ref={group} position={[0, 0.1, 0]}>
       <group ref={diffuser} position-y={partY('diffuser', initial)}>
         <mesh>
-          <sphereGeometry args={[0.62, 48, 24, 0, Math.PI * 2, 0, Math.PI / 2]} />
+          <sphereGeometry args={[0.58, 64, 32, 0, Math.PI * 2, 0, Math.PI * 0.62]} />
           <meshStandardMaterial
             color="#fff7ed"
             emissive="#f5b14c"
-            emissiveIntensity={0.9}
-            roughness={0.35}
+            emissiveIntensity={1.1}
+            roughness={0.25}
+            transparent
+            opacity={0.95}
           />
         </mesh>
-        <pointLight color="#f5b14c" intensity={6} distance={6} position={[0, 0.2, 0]} />
+        <pointLight color="#f5b14c" intensity={7} distance={6} position={[0, 0.1, 0]} />
       </group>
 
       <group ref={ring} position-y={partY('ring', initial)}>
         <mesh rotation-x={Math.PI / 2}>
-          <torusGeometry args={[0.55, 0.055, 24, 96]} />
+          <torusGeometry args={[0.2, 0.035, 24, 96]} />
           <meshStandardMaterial
             color="#1c1a22"
             emissive="#e96a8d"
-            emissiveIntensity={1.4}
+            emissiveIntensity={1.6}
             roughness={0.3}
             metalness={0.6}
           />
@@ -85,23 +87,19 @@ export function Lamp({ progressRef, staticProgress }: LampProps) {
 
       <group ref={body} position-y={partY('body', initial)}>
         <mesh>
-          <cylinderGeometry args={[0.34, 0.42, 0.7, 48]} />
-          <meshStandardMaterial color="#4a4555" roughness={0.35} metalness={0.8} />
+          <cylinderGeometry args={[0.07, 0.095, 1.2, 48]} />
+          <meshStandardMaterial color="#cfd0d6" roughness={0.25} metalness={0.9} />
         </mesh>
       </group>
 
       <group ref={base} position-y={partY('base', initial)}>
         <mesh>
-          <cylinderGeometry args={[0.66, 0.72, 0.16, 56]} />
-          <meshStandardMaterial color="#332e3d" roughness={0.45} metalness={0.7} />
+          <cylinderGeometry args={[0.55, 0.62, 0.1, 64]} />
+          <meshStandardMaterial color="#3a3543" roughness={0.4} metalness={0.75} />
         </mesh>
-        <mesh position-y={0.09} rotation-x={Math.PI / 2}>
-          <torusGeometry args={[0.5, 0.012, 12, 80]} />
-          <meshStandardMaterial
-            color="#0d0c11"
-            emissive="#8b5cf6"
-            emissiveIntensity={1.1}
-          />
+        <mesh position-y={-0.06} rotation-x={Math.PI / 2}>
+          <torusGeometry args={[0.52, 0.014, 12, 96]} />
+          <meshStandardMaterial color="#0d0c11" emissive="#8b5cf6" emissiveIntensity={1.2} />
         </mesh>
       </group>
     </group>
