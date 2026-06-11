@@ -50,8 +50,12 @@ export function Lamp({ progressRef, staticProgress }: LampProps) {
     base.current?.position.setY(partY('base', progress))
 
     if (group.current) {
+      const interactive = staticProgress === undefined
+      const pointerYaw = interactive ? state.pointer.x * 0.3 : 0
+      const pointerPitch = interactive ? -state.pointer.y * 0.14 : 0
       group.current.rotation.y =
-        progress * Math.PI * 0.5 + Math.sin(state.clock.elapsedTime * 0.3) * 0.08
+        progress * Math.PI * 0.5 + Math.sin(state.clock.elapsedTime * 0.3) * 0.08 + pointerYaw
+      group.current.rotation.x = MathUtils.lerp(group.current.rotation.x, pointerPitch, 0.08)
     }
   })
 
