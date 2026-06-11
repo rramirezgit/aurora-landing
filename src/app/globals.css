@@ -16,6 +16,62 @@ body {
   font-family: var(--font-display), var(--font-geist-sans), sans-serif;
 }
 
+@keyframes aurora-drift {
+  0% {
+    transform: translate3d(-3%, -2%, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(3%, 2.5%, 0) scale(1.08);
+  }
+  100% {
+    transform: translate3d(-3%, -2%, 0) scale(1);
+  }
+}
+
+@keyframes aurora-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.aurora-bg {
+  position: fixed;
+  inset: -10%;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(38% 48% at 20% 26%, rgba(245, 177, 76, 0.18), transparent 62%),
+    radial-gradient(44% 52% at 80% 30%, rgba(233, 106, 141, 0.16), transparent 64%),
+    radial-gradient(60% 58% at 50% 90%, rgba(139, 92, 246, 0.18), transparent 60%);
+  filter: blur(64px) saturate(125%);
+  animation: aurora-drift 24s ease-in-out infinite;
+}
+
+.aurora-vignette {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(120% 90% at 50% 35%, transparent 55%, rgba(4, 3, 6, 0.8) 100%);
+}
+
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.045;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
 .text-aurora {
   background: linear-gradient(
     100deg,
@@ -26,6 +82,32 @@ body {
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
+}
+
+.hero-aurora-text,
+.hero-char {
+  background: linear-gradient(
+    110deg,
+    #fef3c7 0%,
+    var(--color-aurora-amber) 24%,
+    var(--color-aurora-rose) 50%,
+    var(--color-aurora-violet) 76%,
+    #c4b5fd 100%
+  );
+  background-size: 240% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: aurora-shift 9s ease-in-out infinite;
+}
+
+.hero-aurora-text {
+  filter: drop-shadow(0 0 46px rgba(233, 106, 141, 0.28));
+}
+
+.hero-char {
+  display: inline-block;
+  will-change: transform, filter;
 }
 
 .glow-orb {
@@ -50,5 +132,10 @@ body {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  .aurora-bg,
+  .hero-aurora-text,
+  .hero-char {
+    animation: none;
   }
 }

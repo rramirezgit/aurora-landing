@@ -30,9 +30,12 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${spaceGrotesk.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-[#08070b] text-zinc-200">
+      <body className="min-h-full bg-[#050407] text-zinc-200">
+        <div className="aurora-bg" aria-hidden />
+        <div className="aurora-vignette" aria-hidden />
         <Preloader />
         <LenisProvider>{children}</LenisProvider>
+        <div className="grain" aria-hidden />
       </body>
     </html>
   );
