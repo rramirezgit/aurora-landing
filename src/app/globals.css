@@ -125,6 +125,16 @@ body {
   overflow: hidden;
 }
 
+[data-cw-dot] {
+  box-shadow: 0 0 0 0 var(--sw);
+  transition: box-shadow 0.35s ease;
+}
+
+[data-cw-swatch]:hover [data-cw-dot],
+[data-cw-swatch][aria-checked="true"] [data-cw-dot] {
+  box-shadow: 0 0 28px 2px var(--sw);
+}
+
 ::selection {
   background: rgba(245, 177, 76, 0.3);
 }
