@@ -125,6 +125,11 @@ body {
   overflow: hidden;
 }
 
+.cursor-none,
+.cursor-none * {
+  cursor: none !important;
+}
+
 [data-cw-dot] {
   box-shadow: 0 0 0 0 var(--sw);
   transition: box-shadow 0.35s ease;
