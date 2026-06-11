@@ -13,10 +13,10 @@ export interface LampPartConfig {
 }
 
 export const LAMP_PARTS: LampPartConfig[] = [
-  { id: 'diffuser', label: 'Opal glass dome', assembledY: 0.34, explodedY: 1.75 },
-  { id: 'ring', label: 'Adaptive light ring', assembledY: 0.32, explodedY: 0.92 },
-  { id: 'body', label: 'Aluminum stem', assembledY: -0.28, explodedY: -0.2 },
-  { id: 'base', label: 'Weighted smart base', assembledY: -0.95, explodedY: -1.75 },
+  { id: 'diffuser', label: 'Opal glass dome', assembledY: 0.34, explodedY: 1.45 },
+  { id: 'ring', label: 'Adaptive light ring', assembledY: 0.32, explodedY: 0.78 },
+  { id: 'body', label: 'Aluminum stem', assembledY: -0.28, explodedY: -0.18 },
+  { id: 'base', label: 'Weighted smart base', assembledY: -0.95, explodedY: -1.5 },
 ]
 
 const partY = (id: string, progress: number): number => {
